@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JudgeLens AI - Final Jury Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4338ca;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-500: #64748b;
+            --slate-300: #cbd5e1;
+            --bg-color: #ffffff;
+            --text-color: #0f172a;
+        }
+
+        @media print {
+            @page { margin: 0; size: A4; }
+            body { -webkit-print-color-adjust: exact; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+            h1, h2, h3 { page-break-after: avoid; }
+            img { max-width: 100% !important; }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--slate-900); }
+        h1 { font-size: 3rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1.1; }
+        h2 { font-size: 2rem; font-weight: 700; margin-top: 3rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.5rem; font-weight: 600; margin-top: 2rem; color: var(--primary-dark); }
+        code { font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 0.2rem 0.4rem; rounded: 4px; font-size: 0.9em; color: #e11d48; }
+        pre { background: #0f172a; color: #f8fafc; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+        pre code { background: transparent; color: inherit; padding: 0; }
+
+        /* Cover Page */
+        .cover-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-page h1 { color: white; font-size: 5rem; margin-bottom: 1rem; }
+        .cover-page .subtitle { font-size: 1.5rem; opacity: 0.8; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; }
+        .cover-page .date { margin-top: 4rem; font-size: 1rem; opacity: 0.5; }
+        .logo-icon { font-size: 6rem; color: var(--primary); margin-bottom: 2rem; filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5)); }
+
+        /* Decor */
+        .grid-pattern {
+            position: absolute; inset: 0; opacity: 0.1;
+            background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Layout */
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        
+        /* Cards & Breakdowns */
+        .file-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+        }
+        .file-card h4 { margin-top: 0; display: flex; align-items: center; gap: 0.5rem; }
+        .file-card .path { font-family: 'JetBrains Mono'; font-size: 0.8em; opacity: 0.6; }
+
+        /* TOC */
+        .toc { background: #f8fafc; padding: 2rem; border-radius: 12px; }
+        .toc ul { list-style: none; padding: 0; }
+        .toc li { margin-bottom: 0.5rem; }
+        .toc a { text-decoration: none; color: var(--slate-800); font-weight: 500; display: flex; justify-content: space-between; }
+        .toc a:hover { color: var(--primary); }
+        .toc a::after { content: "...................................................."; opacity: 0.2; flex-grow: 1; margin: 0 10px; overflow: hidden; }
+
+        /* Alerts from MD */
+        blockquote { border-left: 4px solid var(--primary); margin: 0; padding-left: 1rem; color: var(--slate-500); font-style: italic; background: #eff6ff; padding: 1rem; border-radius: 0 8px 8px 0; }
+
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div class="grid-pattern"></div>
+        <div class="logo-icon"><i class="fas fa-bullseye"></i></div>
+        <h1>JudgeLens AI</h1>
+        <div class="subtitle">Predictive Analytics Platform</div>
+        <div class="date">Final Jury Report &bull; Generated January 2026</div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <!-- TOC -->
+        <h2 id="toc">Table of Contents</h2>
+        <div class="toc">
+            <ul>
+                <li><a href="#exec-summary">1. Executive Summary & Master Specification</a></li>
+                <li><a href="#impl-plan">2. Implementation Plan & Roadmap</a></li>
+                <li><a href="#task-breakdown">3. Task Breakdown & Progress</a></li>
+                <li><a href="#developer-manual">4. Developer's Manual (Deep Dive)</a></li>
+                <li><a href="#file-analysis">5. Comprehensive File Analysis</a></li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 1: REPORT -->
+        <section id="exec-summary">
+            <!-- Content from project_report.md -->
+            <h1>1. JudgeLens AI: Master Specification</h1>
+            <p><strong>JudgeLens AI</strong> is an advanced, multi-agent predictive analytics platform designed to simulate elite hackathon judging. This document serves as the absolute source of truth for the project's architecture, logic, and operational philosophy.</p>
+
+            <h2>System Architecture: The High-Level Flow</h2>
+            <div class="file-card">
+                <h4><i class="fas fa-project-diagram"></i> Sequence Diagram</h4>
+                <p><strong>User (Browser)</strong> &rarr; React (Frontend) &rarr; Validate &rarr; POST /analyze &rarr; FastAPI (Backend)</p>
+                <p>&darr;</p>
+                <p><strong>Orchestrator</strong> &rarr; Sequential Agent Execution (Judge &rarr; Skeptic &rarr; Mentor &rarr; Benchmark)</p>
+                <p>&darr;</p>
+                <p><strong>Aggregation</strong> &rarr; Response JSON &rarr; Render Dashboard</p>
+            </div>
+
+            <h2>The AI Persona Engine</h2>
+            <p>JudgeLens utilizes <strong>Persona-Driven Engineering</strong> to provide a "Judgement Panel" effect.</p>
+            <ul>
+                <li><strong>The Judge</strong>: <em>The Academic</em>. Provides objectivity and rubric alignment.</li>
+                <li><strong>The Skeptic</strong>: <em>The VC Shark</em>. Mimics the "No" phase of venture funding. Provides brutal honesty.</li>
+                <li><strong>The Mentor</strong>: <em>The Architect</em>. Provides a constructive path forward and actionable steps.</li>
+                <li><strong>The Historian</strong>: <em>The Librarian</em>. Provides context and comparisons to winning projects.</li>
+            </ul>
+
+            <h2>Technical Stack</h2>
+            <ul>
+                <li><strong>Frontend</strong>: React 19, Vite, Tailwind CSS, Recharts, Framer Motion (CSS animations).</li>
+                <li><strong>Backend</strong>: FastAPI (Python), Google Gemini 2.0 Flash, Pydantic, Asyncio.</li>
+                <li><strong>Resilience</strong>: Exponential backoff for rate limits, sequential orchestration for burst prevention.</li>
+            </ul>
+        </section>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 2: IMPL PLAN -->
+        <section id="impl-plan">
+            <h1>2. Implementation Strategy</h1>
+            <p>The development followed a strict, phased approach to ensure quality and reliability.</p>
+            
+            <h3>Phase 1: Core Research</h3>
+            <p>Analyzed the backend agent logic (`agents.py`) to understand the prompt engineering and rate-limiting strategies. Mapped the React state machine in `App.tsx`.</p>
+
+            <h3>Phase 2: Documentation Suite</h3>
+            <p>Created the "Master Specification" and "Developer's Manual" to document the system's "black box" components.</p>
+
+            <h3>Phase 3: High-Fidelity Reporting</h3>
+            <p>Designed this HTML-to-PDF pipeline to allow for a premium presentation format suitable for jury review.</p>
+        </section>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 3: TASK LIST -->
+        <section id="task-breakdown">
+            <h1>3. Task Execution Log</h1>
+            <p>A detailed log of all completed engineering tasks.</p>
+            <div class="file-card">
+                <h4><i class="fas fa-check-double"></i> Completed Tasks</h4>
+                <ul>
+                    <li>[x] <strong>Deep Technical Research</strong>: Line-by-line analysis of `agents.py` and `App.tsx`.</li>
+                    <li>[x] <strong>Architectural Visualization</strong>: Designed Mermaid implementation diagrams.</li>
+                    <li>[x] <strong>UX Psychology Breakdown</strong>: Mapped user emotional journey via UI feedback loops.</li>
+                    <li>[x] <strong>Data Lifecycle Mapping</strong>: Traced JSON payloads from submission to aggregation.</li>
+                    <li>[x] <strong>Master Specification</strong>: Drafted the definitive project report.</li>
+                    <li>[x] <strong>Developer's Manual</strong>: Created the technical walkthrough with code annotations.</li>
+                    <li>[x] <strong>Jury Presentation</strong>: Generated this high-fidelity report.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 4: WALKTHROUGH -->
+        <section id="developer-manual">
+            <!-- Content from walkthrough.md -->
+            <h1>4. Developer's Manual</h1>
+            <p>This section explores the "Code-Level" reality of JudgeLens AI.</p>
+
+            <h2>The AI Engine: Prompt Engineering</h2>
+            <p>The backend logic resides in `backend/agents.py`. The `safe_generate_content` function implements a <strong>Resilience Loop</strong> to handle API instability.</p>
+            <pre><code>async def safe_generate_content(prompt: str, retries=3, delay=10):
+    for attempt in range(retries):
+        try:
+            response = await client.aio.models.generate_content(...)
+            return response
+        except Exception as e:
+            if "429" in str(e): # Rate Limit Hit
+                await asyncio.sleep(delay * (attempt + 1)) # Exponential Backoff</code></pre>
+
+            <h2>Frontend Visual Architecture</h2>
+            <p>The "Kinetic Grid" background is powered by pure CSS animations in `index.html`.</p>
+            <pre><code>@keyframes grid-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 600px 600px; }
+}</code></pre>
+
+            <h2>State Machine Logic</h2>
+            <p>The `App.tsx` component functions as a finite state machine, transitioning between `IDLE`, `EVALUATING`, `RESULTS`, and `ERROR` states based on the API response lifecycle.</p>
+        </section>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 5: FILE ANALYSIS -->
+        <section id="file-analysis">
+            <h1>5. Comprehensive File Analysis</h1>
+            <p>A detailed breakdown of every critical file in the repository.</p>
+
+            <!-- BACKEND -->
+            <h3>Backend Architecture (`/backend`)</h3>
+            
+            <div class="file-card">
+                <h4><i class="fab fa-python"></i> main.py</h4>
+                <p>The entry point for the FastAPI server.</p>
+                <ul>
+                    <li><strong>Initializes FastAPI</strong>: Sets up the app with title and metadata.</li>
+                    <li><strong>CORS Middleware</strong>: Configures `CORSMiddleware` to allow requests from the React frontend.</li>
+                    <li><strong>Dependency Injection</strong>: Initializes the `Orchestrator` singleton.</li>
+                    <li><strong>Endpoints</strong>:
+                        <ul>
+                            <li>`POST /analyze`: Accepts `ProjectSubmission`, validates header keys, calls the Orchestrator, and returns `EvaluationResult`.</li>
+                            <li>`GET /`: Health check endpoint.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="file-card">
+                <h4><i class="fab fa-python"></i> agents.py</h4>
+                <p>The core intelligence layer. Contains all LLM interactions.</p>
+                <ul>
+                    <li><strong>Config</strong>: Loads environment variables (`GEMINI_API_KEY`) and configures the `google-genai` client.</li>
+                    <li><strong>Helper</strong>: `safe_generate_content()` implements exponential backoff for 429 errors.</li>
+                    <li><strong>Agents</strong>:
+                        <ul>
+                            <li>`JudgeAgent`: Structured JSON scoring.</li>
+                            <li>`SkepticAgent`: Adversarial critique.</li>
+                            <li>`MentorAgent`: Improvement suggestions.</li>
+                            <li>`BenchmarkAgent`: Historical comparison.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Orchestrator</strong>: Manages the sequential execution flow (`await asyncio.sleep(5)`) to prevent rate limiting.</li>
+                </ul>
+            </div>
+
+            <div class="file-card">
+                <h4><i class="fab fa-python"></i> models.py</h4>
+                <p>Pydantic data definitions for type safety.</p>
+                <ul>
+                    <li>`ProjectSubmission`: `title`, `description`, `techStack`.</li>
+                    <li>`EvaluationResult`: The complex nested structure returned to the UI, including scores, prediction, and critique.</li>
+                </ul>
+            </div>
+
+            <!-- FRONTEND -->
+            <h3>Frontend Architecture (`/`)</h3>
+
+            <div class="file-card">
+                <h4><i class="fab fa-react"></i> App.tsx</h4>
+                <p>The main application controller and layout.</p>
+                <ul>
+                    <li><strong>State Management</strong>: Uses `useState` to track `AppStatus` (IDLE, EVALUATING, RESULTS, ERROR).</li>
+                    <li><strong>Layout</strong>: Renders the Navbar, Hero Section, submission form, and results conditionally.</li>
+                    <li><strong>Styling</strong>: Implements the glassmorphism container and dynamic background elements.</li>
+                </ul>
+            </div>
+
+            <div class="file-card">
+                <h4><i class="fab fa-react"></i> components/SubmissionForm.tsx</h4>
+                <p>The user input interface.</p>
+                <ul>
+                    <li><strong>Validation</strong>: Ensures title and description are not empty.</li>
+                    <li><strong>Visuals</strong>: Uses glassmorphism inputs and a gradient submit button with loading spinner state.</li>
+                </ul>
+            </div>
+
+            <div class="file-card">
+                <h4><i class="fab fa-react"></i> components/EvaluationResults.tsx</h4>
+                <p>The data visualization dashboard.</p>
+                <ul>
+                    <li><strong>Recharts</strong>: Renders the Radar Chart for category dimensions.</li>
+                    <li><strong>Verdict Ring</strong>: SVG-based animated ring showing the overall score.</li>
+                    <li><strong>Critique Card</strong>: Displays the persona-driven feedback.</li>
+                </ul>
+            </div>
+
+            <div class="file-card">
+                <h4><i class="fab fa-js"></i> services/geminiService.ts</h4>
+                <p>The API communication layer.</p>
+                <ul>
+                    <li><strong>Fetcher</strong>: Sends `POST` requests to the backend.</li>
+                    <li><strong>Error Handling</strong>: parses non-200 responses and throws descriptive errors for the UI to catch.</li>
+                </ul>
+            </div>
+
+            <!-- CONFIG -->
+            <h3>Configuration & Styles</h3>
+
+            <div class="file-card">
+                <h4><i class="fab fa-html5"></i> index.html</h4>
+                <p>The entry HTML file.</p>
+                <ul>
+                    <li><strong>Global Styles</strong>: Contains the CSS for `.glass`, `.accent-gradient`, and the `.grid-pattern` animation.</li>
+                    <li><strong>Fonts</strong>: Imports 'Plus Jakarta Sans' from Google Fonts.</li>
+                    <li><strong>Tailwind</strong>: Loads Tailwind via CDN for rapid styling (in this specific setup).</li>
+                </ul>
+            </div>
+
+            <div class="file-card">
+                <h4><i class="fas fa-cog"></i> .env & .env.local</h4>
+                <p>Environment variable management.</p>
+                <ul>
+                    <li>`.env`: Stores the `GEMINI_API_KEY` for the backend.</li>
+                    <li>`.env.local`: Stores frontend-specific variables (if any).</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <div class="page-break"></div>
+        <div class="cover-page" style="height: 50vh; background: #0f172a;">
+            <h1>End of Report</h1>
+            <div class="subtitle">JudgeLens AI &bull; 2026</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
